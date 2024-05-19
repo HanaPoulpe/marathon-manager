@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="quickActions">
+        <div class="block">
+            {% if perms.runs.change_eventdata %}
+                <a href="{% url 'event-move-previous' event.name %}">Run Pr&eacute;c&eacute;dente</a>
+                <a href="{% url 'event-move-next' event.name %}">Run suivante</a>
+                <a href="">Modifier &eacute;venement</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="infos">
+        <div class="block">
+            <h4 class="blockTitle">Run en cours</h4>
+            <a href="#{{ current_run.run_index }}">{{ current_run }}</a>
+        </div>
+        <div class="block">
+            <h4 class="blockTitle">Run suivante</h4>
+            {{ next_run }}
+        </div>
+        {% if late %}
+        <div class="block">
+            <h4 class="blockTitle">Retard</h4>
+            {{ late }}
+        </div>
+        {% endif %}
+    </div>
+    <table class="planning">
+    <thead>
+        {% if perms.runs.view_eventdata %}
+            <th>Heure de d&eacute;but pr&eacute;vue</th>
+        {% endif %}
+        <th>Heure de d&eacute;but</th>
+        <th>Run</th>
+        <th>Cat&eacute;gorie</th>
+        <th>Estimation</th>
+        <th>Runners</th>
+        <th>Commentateurs</th>
+        {% if perms.runs.change_run %}
+            <th>Modifier</th>
+        {% endif %}
+    </thead>
+    {% for run in runs %}
+        <tr>
+            {% if perms.runs.view_eventdata %}
+                <td>{{ run.planning_start_at|date:"H:m" }}</td>
+            {% endif %}
+            <td>{{ run.start_at|date:"H:m" }}</td>
+            <td><a href="#{{ run.run_index }}"></a>{{ run.name }}</td>
+            <td>{{ run.category }}</td>
+            <td>{{ run.estimated_time }}</td>
+            <td>{{ run.runners.all|join:" - " }}</td>
+            <td>{{ run.commentators.all|join:" - " }}</td>
+            {% if perms.runs.change_run %}
+                <td><a href="">Modifier</a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
