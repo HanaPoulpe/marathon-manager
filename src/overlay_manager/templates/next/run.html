@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object %}
+        <div class="nextRun">{{ object.name }} ({{ object.category }}) -
+         {{ runners|join:" - " }}
+        </div>
+    {% endif %}
+{% endblock %}

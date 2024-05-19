@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 import environs
 from pathlib import Path
 
@@ -42,8 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "allauth",
     "allauth.account",
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.discord',
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.discord",
     "overlay_manager.runs",
 ]
 
@@ -63,7 +64,7 @@ ROOT_URLCONF = "overlay_manager.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR.joinpath("overlay_manager", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -133,23 +134,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_ON_GET = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
-    'discord': {
-        'APP': {
-            'client_id': env.str('DISCORD_CLIENT_ID', ""),
-            'secret': env.str('DISCORD_CLIENT_SECRET', ""),
-            'key': env.str('DISCORD_KEY', ""),
+    "discord": {
+        "APP": {
+            "client_id": env.str("DISCORD_CLIENT_ID", ""),
+            "secret": env.str("DISCORD_CLIENT_SECRET", ""),
+            "key": env.str("DISCORD_KEY", ""),
         }
     }
 }
-
