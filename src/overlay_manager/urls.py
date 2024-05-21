@@ -1,5 +1,5 @@
-from django.contrib import admin
 from django import urls
+from django.contrib import admin
 
 from overlay_manager.runs import views
 
@@ -65,5 +65,5 @@ urlpatterns = [
         name="event-move-previous",
     ),
     # Default URL
-    urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event")
+    urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event"),
 ]

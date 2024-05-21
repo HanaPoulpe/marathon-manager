@@ -1,12 +1,12 @@
+from .event import DefaultEventRedirectView, EventEditView, MoveNextRunView, MovePreviousRunView
 from .runs import (
     CurrentRunCategoryView,
-    CurrentRunNameView,
-    CurrentRunnerNameView,
-    NextRunView,
-    CurrentRunnerView,
-    CurrentRunnerPronounsView,
     CurrentRunEstimateView,
-    CurrentRunPlatformView,
+    CurrentRunNameView,
     CurrentRunnerNameAndPronounsView,
+    CurrentRunnerNameView,
+    CurrentRunnerPronounsView,
+    CurrentRunnerView,
+    CurrentRunPlatformView,
+    NextRunView,
 )
-from .event import EventEditView, MoveNextRunView, MovePreviousRunView, DefaultEventRedirectView

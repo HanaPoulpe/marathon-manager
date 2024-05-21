@@ -1,9 +1,8 @@
 import datetime
 
-from django.views import generic
+from django import http, urls
 from django.contrib.auth import mixins as auth_mixins
-from django import http
-from django import urls
+from django.views import generic
 
 from overlay_manager.runs import models
 
@@ -60,7 +59,9 @@ class MoveNextRunView(auth_mixins.PermissionRequiredMixin, generic.DetailView):
         event = self.get_object()
         event.set_next_run()
 
-        return http.HttpResponseRedirect(urls.reverse("event-details", kwargs={"event_name": event.name}))
+        return http.HttpResponseRedirect(
+            urls.reverse("event-details", kwargs={"event_name": event.name})
+        )
 
 
 class MovePreviousRunView(auth_mixins.PermissionRequiredMixin, generic.DetailView):
@@ -80,10 +81,14 @@ class MovePreviousRunView(auth_mixins.PermissionRequiredMixin, generic.DetailVie
         event = self.get_object()
         event.set_previous_run()
 
-        return http.HttpResponseRedirect(urls.reverse("event-details", kwargs={"event_name": event.name}))
+        return http.HttpResponseRedirect(
+            urls.reverse("event-details", kwargs={"event_name": event.name})
+        )
 
 
 class DefaultEventRedirectView(generic.RedirectView):
     def get_redirect_url(self, *args, **kwargs) -> str:
-        next_event = models.EventData.objects.filter(event_end_on__lte=datetime.date.today()).earliest("event_start_on")
+        next_event = models.EventData.objects.filter(
+            event_end_on__lte=datetime.date.today()
+        ).earliest("event_start_on")
         return urls.reverse("event-details", kwargs={"event_name": next_event.name})
