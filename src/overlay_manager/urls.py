@@ -37,6 +37,11 @@ urlpatterns = [
         views.CurrentRunnerPronounsView.as_view(),
         name="current-runner-pronouns",
     ),
+    urls.path(
+        "event/<str:event_name>/current/runner/<int:index>/name_and_pronouns",
+        views.CurrentRunnerNameAndPronounsView.as_view(),
+        name="current-runner-name-and-pronouns",
+    ),
     # Next run
     urls.path(
         "event/<str:event_name>/next/run",
