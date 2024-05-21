@@ -1,5 +1,5 @@
-from django.contrib import admin
 from django import urls
+from django.contrib import admin
 
 from overlay_manager.runs import views
 
@@ -37,6 +37,11 @@ urlpatterns = [
         views.CurrentRunnerPronounsView.as_view(),
         name="current-runner-pronouns",
     ),
+    urls.path(
+        "event/<str:event_name>/current/runner/<int:index>/name_and_pronouns",
+        views.CurrentRunnerNameAndPronounsView.as_view(),
+        name="current-runner-name-and-pronouns",
+    ),
     # Next run
     urls.path(
         "event/<str:event_name>/next/run",
@@ -60,5 +65,5 @@ urlpatterns = [
         name="event-move-previous",
     ),
     # Default URL
-    urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event")
+    urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event"),
 ]

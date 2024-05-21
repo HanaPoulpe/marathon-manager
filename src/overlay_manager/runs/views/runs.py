@@ -1,5 +1,5 @@
-from django.views import generic
 from django import http
+from django.views import generic
 
 from overlay_manager.runs import models
 
@@ -50,6 +50,10 @@ class CurrentRunnerNameView(CurrentRunnerView):
 
 class CurrentRunnerPronounsView(CurrentRunnerView):
     template_name = "current/runner_pronouns.html"
+
+
+class CurrentRunnerNameAndPronounsView(CurrentRunnerView):
+    template_name = "current/runner_name_and_pronouns.html"
 
 
 class NextRunView(CurrentRunView):

@@ -1,8 +1,7 @@
 import datetime
 from typing import Optional
 
-from django.db import models
-from django.db import transaction
+from django.db import models, transaction
 
 
 class Person(models.Model):
@@ -33,7 +32,9 @@ class EventData(models.Model):
             current_run_index = self.current_run.run_index
 
         try:
-            return Run.objects.filter(run_index__gt=current_run_index, is_intermission=False).first()
+            return Run.objects.filter(
+                run_index__gt=current_run_index, is_intermission=False
+            ).first()
         except Run.DoesNotExist:
             return None
 
@@ -64,7 +65,9 @@ class EventData(models.Model):
         if current_run := self.current_run:
             current_run.actual_start_at = now
             delta = current_run.actual_start_at - current_run.planning_start_at
-            self.shift = delta if delta > datetime.timedelta(minutes=0) else datetime.timedelta(minutes=0)
+            self.shift = (
+                delta if delta > datetime.timedelta(minutes=0) else datetime.timedelta(minutes=0)
+            )
             current_run.save()
 
         self.save()
@@ -78,7 +81,9 @@ class EventData(models.Model):
         else:
             return
 
-        current_run = self.runs.filter(run_index__lt=next_run.run_index).order_by("-run_index").first()
+        current_run = (
+            self.runs.filter(run_index__lt=next_run.run_index).order_by("-run_index").first()
+        )
         if current_run:
             current_run.is_finished = False
             current_run.actual_end_at = None
