@@ -28,6 +28,11 @@ urlpatterns = [
         name="current-run-estimate",
     ),
     urls.path(
+        "event/<str:event_name>/current/run_trigger_warning",
+        views.CurrentRunTriggerWarning.as_view(),
+        name="current-run-trigger-warning",
+    ),
+    urls.path(
         "event/<str:event_name>/current/runner/<int:index>/name",
         views.CurrentRunnerNameView.as_view(),
         name="current-runner-name",
