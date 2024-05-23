@@ -28,8 +28,8 @@
                 {% if run.can_move_up %}<a href="{% url 'edit-run-move-up' event.name run.id %}">/\</a>{% endif %}
                 {% if run.can_move_down %}<a href="{% url 'edit-run-move-down' event.name run.id %}">\/</a>{% endif %}
             </td>
-            <td>{{ run.planning_start_at|date:"H:m" }}</td>
-            <td>{{ run.planning_end_at|date:"H:m" }}</td>
+            <td>{{ run.planning_start_at|date:"H:i" }}</td>
+            <td>{{ run.planning_end_at|date:"H:i" }}</td>
             <td>{{ run.name }}</td>
             <td>{{ run.estimated_time }}</td>
             <td>{{ run.runners.all|join:" - " }}</td>

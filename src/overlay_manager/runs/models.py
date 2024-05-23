@@ -19,8 +19,8 @@ class EventData(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
     current_run = models.ForeignKey("Run", null=True, blank=True, on_delete=models.SET_NULL)
     shift = models.DurationField(null=False, blank=False, default=datetime.timedelta(minutes=0))
-    event_start_on = models.DateField(null=False, blank=False, default=datetime.date.today)
-    event_end_on = models.DateField(null=False, blank=False, default=datetime.date.today)
+    event_start_at = models.DateTimeField(null=False, blank=False, auto_created=True)
+    event_end_at = models.DateTimeField(null=False, blank=False, auto_created=True)
 
     def __str__(self) -> str:
         return self.name
