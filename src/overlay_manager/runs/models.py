@@ -98,6 +98,7 @@ class Run(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     platform = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=255, null=True, blank=True)
+    trigger_warning = models.CharField(max_length=255, null=True, blank=True)
 
     estimated_time = models.DurationField(null=False, blank=False)
     planning_start_at = models.DateTimeField(null=False, blank=False)
