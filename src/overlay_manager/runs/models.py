@@ -109,7 +109,7 @@ class Run(models.Model):
     event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name="runs")
     run_index = models.IntegerField(null=False, blank=False)
 
-    runners = models.ManyToManyField(Person, related_name="runs")
+    runners = models.ManyToManyField(Person, related_name="runs", null=True)
     commentators = models.ManyToManyField(Person, related_name="comments")
 
     is_intermission = models.BooleanField(null=False, blank=False, default=False)

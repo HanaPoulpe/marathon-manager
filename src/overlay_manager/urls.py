@@ -71,4 +71,20 @@ urlpatterns = [
     ),
     # Default URL
     urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event"),
+    # Event Edit
+    urls.path(
+        "event/<str:event_name>/edit",
+        views.EventEditFormView.as_view(),
+        name="event-edit",
+    ),
+    urls.path(
+        "event/<str:event_name>/edit/run/<int:run_id>/move-up",
+        views.EditRunPreviousView.as_view(),
+        name="edit-run-move-up",
+    ),
+    urls.path(
+        "event/<str:event_name>/edit/run/<int:run_id>/move-down",
+        views.EditRunNextView.as_view(),
+        name="edit-run-move-down",
+    ),
 ]
