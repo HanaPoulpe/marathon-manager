@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object.trigger_warning %}<div class="runTriggerWarning">{{ object.trigger_warning }}</div>{% endif %}
+{% endblock %}

@@ -28,6 +28,11 @@ urlpatterns = [
         name="current-run-estimate",
     ),
     urls.path(
+        "event/<str:event_name>/current/run_trigger_warning",
+        views.CurrentRunTriggerWarning.as_view(),
+        name="current-run-trigger-warning",
+    ),
+    urls.path(
         "event/<str:event_name>/current/runner/<int:index>/name",
         views.CurrentRunnerNameView.as_view(),
         name="current-runner-name",
@@ -66,4 +71,20 @@ urlpatterns = [
     ),
     # Default URL
     urls.path("", views.DefaultEventRedirectView.as_view(), name="default-event"),
+    # Event Edit
+    urls.path(
+        "event/<str:event_name>/edit",
+        views.EventEditFormView.as_view(),
+        name="event-edit",
+    ),
+    urls.path(
+        "event/<str:event_name>/edit/run/<int:run_id>/move-up",
+        views.EditRunPreviousView.as_view(),
+        name="edit-run-move-up",
+    ),
+    urls.path(
+        "event/<str:event_name>/edit/run/<int:run_id>/move-down",
+        views.EditRunNextView.as_view(),
+        name="edit-run-move-down",
+    ),
 ]

@@ -10,6 +10,8 @@ class Person(models.Model):
     pronouns = models.CharField(max_length=255, null=True, blank=True)
     socials = models.URLField(null=True, blank=True)
 
+    rtmp_host = models.URLField(null=True, blank=True)
+
     def __str__(self) -> str:
         return self.name
 
@@ -19,8 +21,8 @@ class EventData(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
     current_run = models.ForeignKey("Run", null=True, blank=True, on_delete=models.SET_NULL)
     shift = models.DurationField(null=False, blank=False, default=datetime.timedelta(minutes=0))
-    event_start_on = models.DateField(null=False, blank=False, default=datetime.date.today)
-    event_end_on = models.DateField(null=False, blank=False, default=datetime.date.today)
+    event_start_at = models.DateTimeField(null=False, blank=False, auto_created=True)
+    event_end_at = models.DateTimeField(null=False, blank=False, auto_created=True)
 
     def __str__(self) -> str:
         return self.name
@@ -98,6 +100,7 @@ class Run(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     platform = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=255, null=True, blank=True)
+    trigger_warning = models.CharField(max_length=255, null=True, blank=True)
 
     estimated_time = models.DurationField(null=False, blank=False)
     planning_start_at = models.DateTimeField(null=False, blank=False)
@@ -108,11 +111,13 @@ class Run(models.Model):
     event = models.ForeignKey(EventData, on_delete=models.CASCADE, related_name="runs")
     run_index = models.IntegerField(null=False, blank=False)
 
-    runners = models.ManyToManyField(Person, related_name="runs")
+    runners = models.ManyToManyField(Person, related_name="runs", null=True)
     commentators = models.ManyToManyField(Person, related_name="comments")
 
     is_intermission = models.BooleanField(null=False, blank=False, default=False)
     is_finished = models.BooleanField(null=False, blank=False, default=False)
+
+    obs_scene_id = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=["event", "run_index"], name="run_order")]

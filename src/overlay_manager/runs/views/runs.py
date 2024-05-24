@@ -33,6 +33,10 @@ class CurrentRunEstimateView(CurrentRunView):
     template_name = "current/run_estimate.html"
 
 
+class CurrentRunTriggerWarning(CurrentRunView):
+    template_name = "current/run_trigger_warning.html"
+
+
 class CurrentRunnerView(CurrentRunView):
     def get_object(self, queryset=None, **kwargs) -> models.Person:
         run = super().get_object()
