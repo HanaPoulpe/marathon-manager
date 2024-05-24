@@ -70,14 +70,58 @@ def next_run_for_event(event: models.EventData) -> None:
 
 
 def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
-    next_runs_display = ["Titre_NextRun", "Titre_Next", "Titre_Next_2", "Titre_Next_3"]
+    next_runs_display = [
+        (
+            "Titre_NextRun",
+            "Categorie_NextRun",
+            "Runneureuse_1_NextRun",
+            "Runneureuse_2_Pronoms_NextRun",
+            "Estimate_NextRun",
+        ),
+        (
+            "Titre_Next",
+            "Categorie_Next",
+            "Runneureuse_1_Next",
+            "Runneureureuse_2_Pronoms_Next",
+            "Estimate_Next",
+        ),
+        (
+            "Titre_Next_2",
+            "Categorie_Next_2",
+            "Runneureuse_1_Next_2",
+            "Runneureuse_2_Pronoms_Next_2",
+            "Estimate_Next_2",
+        ),
+        (
+            "Titre_Next_3",
+            "Categorie_Next_3",
+            "Runneureuse_1_Next_3",
+            "Runneureuse_2_Pronoms_Next_3",
+            "Estimate_Next_3",
+        ),
+    ]
     timer_start_value = max(
         run.planning_end_at - datetime.datetime.now(datetime.UTC), run.estimated_time
     )
+    scene = "Intermission"
 
-    for scene, run in zip(next_runs_display, run.event.runs.order_by("run_index")):
+    for run, displays in zip(
+        models.Run.objects.filter(
+            is_intermission=False, run_index__gt=run.run_index, event=run.event
+        ).order_by("run_index"),
+        next_runs_display,
+    ):
         try:
-            obs.set_text_source_text(scene, run.name)
+            obs.set_text_source_text(displays[0], run.name)
+            obs.set_text_source_text(displays[1], run.category)
+            obs.set_text_source_text(displays[2], run.runners[0].name)
+            obs.set_text_source_text(displays[3], run.runners[0].pronouns)
+            obs.set_text_source_text(
+                displays[4],
+                f"{run.estimated_time.seconds // 3600}:"
+                f"{run.estimated_time.seconds % 3600 // 60:02}:"
+                f"{run.estimated_time.seconds % 60:02}",
+            )
         except obs_client.ObsClientError:
             pass
 
@@ -111,11 +155,11 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         [],
         [],
     ]
-    run_title_displays = ["run_title_0", "run_title_1"]
-    run_category_displays = ["run_category_0", "run_category_1"]
-    run_platform_displays = ["run_platform_0", "run_platform_1"]
-    run_estimated_time_displays = ["run_estimated_time_0", "run_estimated_time_1"]
-    next_run_displays = ["next_run_0", "next_run_1"]
+    run_title_displays = ["Titre_1P_WS", "Titre_1P_4:3", "Titre_4P"]
+    run_category_displays = ["Categorie_1P_WS", "Categorie_1P_4:3", "Categorie_4P"]
+    run_platform_displays = ["Support/Année_1P_WS", "Support/Année_1P_4:3", "Support/Année_4P"]
+    run_estimated_time_displays = ["Estimate"]
+    next_run_displays = []
 
     for runner_name, runner_pronouns, runner_socials_media, runner in zip(
         runners_name_display,
@@ -127,8 +171,6 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
             obs.set_text_source_text(scene, runner.name)
         for scene in runner_pronouns:
             obs.set_text_source_text(scene, runner.pronouns or "")
-        for scene in runner_socials_media:
-            pass  # TODO
 
     for commentator_name, commentator_pronouns, commentator in zip(
         commentators_name_display, commentators_pronouns_display, run.commentators.order_by("name")
@@ -164,14 +206,14 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
 
 
 def _replace_runner_elements_for_scene(
-        obs: obs_client.ObsClient,
-        scene: str,
-        runner: models.Person,
-        name_scene_id: str,
-        pronouns_scene_id: str,
-        socials_media_scene_id: str,
+    obs: obs_client.ObsClient,
+    scene: str,
+    runner: models.Person,
+    name_scene_id: str,
+    pronouns_scene_id: str,
+    socials_media_scene_id: str,
 ) -> None:
-    if scene != '1P - 4/3':
+    if scene != "1P - 4/3":
         return
 
     margin = 5
@@ -184,9 +226,19 @@ def _replace_runner_elements_for_scene(
 
     if new_x_position <= max_x:
         runner_pronouns_position.position_x = new_x_position
-        runner_pronouns_position.position_y = runner_name_position.position_y + runner_name_position.height - runner_pronouns_position.height
+        runner_pronouns_position.position_y = (
+            runner_name_position.position_y
+            + runner_name_position.height
+            - runner_pronouns_position.height
+        )
     else:
-        runner_pronouns_position.position_y = runner_name_position.position_y + runner_name_position.height + margin
-        runner_pronouns_position.position_x = runner_name_position.position_x + runner_name_position.width / 2 - runner_pronouns_position.width / 2
+        runner_pronouns_position.position_y = (
+            runner_name_position.position_y + runner_name_position.height + margin
+        )
+        runner_pronouns_position.position_x = (
+            runner_name_position.position_x
+            + runner_name_position.width / 2
+            - runner_pronouns_position.width / 2
+        )
 
     obs.set_scene_source_position(runner_pronouns_position)

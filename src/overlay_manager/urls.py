@@ -93,5 +93,5 @@ urlpatterns = [
         "main.css",
         views.CSSView.as_view(),
         name="css",
-    )
+    ),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
