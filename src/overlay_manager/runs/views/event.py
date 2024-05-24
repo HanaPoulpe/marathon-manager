@@ -60,7 +60,7 @@ class MoveNextRunView(auth_mixins.PermissionRequiredMixin, generic.DetailView):
 
     def get(self, request, *args, **kwargs) -> http.HttpResponse:
         event = self.get_object()
-        event.set_next_run()
+        run_operations.next_run_for_event(event)
 
         return http.HttpResponseRedirect(
             urls.reverse("event-details", kwargs={"event_name": event.name})
