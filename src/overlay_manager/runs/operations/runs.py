@@ -140,14 +140,14 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         ["Commontateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
     ]
     runners_pronouns_display = [
-        ["Runneureuse_1_pronoms_4:3", "Runneureuse_1_pronoms_WS"],
-        ["runner_pronouns_1_0"],
-        ["runner_pronouns_2_0"],
-        ["runner_pronouns_3_0"],
+        ["Runneureuse_1_Pronoms_4:3", "Runneureuse_1_Pronoms_WS"],
+        [],
+        [],
+        [],
     ]
     commentators_pronouns_display = [
-        ["Commentateurice_1_pronoms_4:3", "Commentateur_1_pronoms_WS"],
-        ["Commentateurice_2_pronoms_4:3", "Commentateur_2_pronoms_WS"],
+        ["Commentateurice_1_Pronoms_4:3", "Commentateur_1_Pronoms_WS"],
+        ["Commentateurice_2_Pronoms_4:3", "Commentateur_2_Pronoms_WS"],
     ]
     runners_socials_media_display = [
         [],
