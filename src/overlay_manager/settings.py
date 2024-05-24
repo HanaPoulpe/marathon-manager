@@ -153,3 +153,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# OBS Integration
+OBS_HOST = env.str("OBS_HOST", "localhost")
+OBS_PORT = env.int("OBS_PORT", 4455)
+OBS_PASSWORD = env.str("OBS_PASSWORD", "")

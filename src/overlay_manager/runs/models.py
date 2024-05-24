@@ -10,6 +10,8 @@ class Person(models.Model):
     pronouns = models.CharField(max_length=255, null=True, blank=True)
     socials = models.URLField(null=True, blank=True)
 
+    rtmp_host = models.URLField(null=True, blank=True)
+
     def __str__(self) -> str:
         return self.name
 
@@ -114,6 +116,8 @@ class Run(models.Model):
 
     is_intermission = models.BooleanField(null=False, blank=False, default=False)
     is_finished = models.BooleanField(null=False, blank=False, default=False)
+
+    obs_scene_id = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=["event", "run_index"], name="run_order")]
