@@ -113,9 +113,9 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
     ):
         try:
             obs.set_text_source_text(displays[0], run.name)
-            obs.set_text_source_text(displays[1], run.category)
+            obs.set_text_source_text(displays[1], run.category or "")
             obs.set_text_source_text(displays[2], run.runners.first().name)
-            obs.set_text_source_text(displays[3], run.runners.first().pronouns)
+            obs.set_text_source_text(displays[3], run.runners.first().pronouns or "")
             obs.set_text_source_text(
                 displays[4],
                 f"{run.estimated_time.seconds // 3600}:"
@@ -136,8 +136,8 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         ["Runneureuse_3"],
     ]
     commentators_name_display = [
-        ["Commentateurice_1_1P_4:3", "Commentateur_1_1P_WS"],
-        ["Commontateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
+        ["Commentateurice_1_1P_4:3", "Commentateurice_1_1P_WS"],
+        ["Commontateurice_2_1P_4:3", "Commentateurice_2_1P_WS"],
     ]
     runners_pronouns_display = [
         ["Runneureuse_1_Pronoms_4:3", "Runneureuse_1_Pronoms_WS"],
@@ -146,8 +146,8 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         [],
     ]
     commentators_pronouns_display = [
-        ["Commentateurice_1_Pronoms_4:3", "Commentateur_1_Pronoms_WS"],
-        ["Commentateurice_2_Pronoms_4:3", "Commentateur_2_Pronoms_WS"],
+        ["Commentateurice_1_Pronoms_4:3", "Commentateurice_1_Pronoms_WS"],
+        ["Commentateurice_2_Pronoms_4:3", "Commentateurice_2_Pronoms_WS"],
     ]
     runners_socials_media_display = [
         [],
@@ -183,9 +183,9 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
     for scene in run_title_displays:
         obs.set_text_source_text(scene, run.name)
     for scene in run_category_displays:
-        obs.set_text_source_text(scene, run.category)
+        obs.set_text_source_text(scene, run.category or "")
     for scene in run_platform_displays:
-        obs.set_text_source_text(scene, run.platform)
+        obs.set_text_source_text(scene, run.platform or "")
     for scene in run_estimated_time_displays:
         obs.set_text_source_text(
             scene,
