@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="quickActions">
-        <div class="block">
+    <div class="header">
+        <div class="header-block">
             {% if perms.runs.change_eventdata %}
-                <a href="{% url 'event-move-previous' event.name %}">Run Pr&eacute;c&eacute;dente</a>
-                <a href="{% url 'event-move-next' event.name %}">Run suivante</a>
-                <a href="">Modifier &eacute;venement</a>
+            <div class="header-link-block">
+              <div class="header-link-block-run">
+                <a class="link-header" href="{% url 'event-move-previous' event.name %}">Run Pr&eacute;c&eacute;dente</a>
+                <a class="link-header" href="{% url 'event-move-next' event.name %}">Run suivante</a>
+              </div>
+                <a class="link-header header-modify-link" href="">Modifier &eacute;venement</a>
+            </div>
+
             {% endif %}
         </div>
     </div>
+
     <div class="infos">
-        <div class="block">
+        <div class="current-run-block">
             <h4 class="blockTitle">Run en cours</h4>
-            <a href="#{{ current_run.run_index }}">{{ current_run }}</a>
+            <a class="current-run-link" href="#{{ current_run.run_index }}">{{ current_run }}</a>
         </div>
-        <div class="block">
-            <h4 class="blockTitle">Run suivante</h4>
+        <div class="next-run-block">
+            <h4 class="blockTitle-next-run">Run suivante</h4>
             {{ next_run }}
         </div>
         {% if late %}
@@ -26,8 +32,9 @@
         </div>
         {% endif %}
     </div>
+
     <table class="planning">
-    <thead>
+    <thead class="planning-header">
         {% if perms.runs.view_eventdata %}
             <th>Heure de d&eacute;but pr&eacute;vue</th>
         {% endif %}
@@ -42,7 +49,7 @@
         {% endif %}
     </thead>
     {% for run in runs %}
-        <tr>
+        <tr class="planning-row {% if run.is_terminated %} ended-run {% endif %}">
             {% if perms.runs.view_eventdata %}
                 <td>{{ run.planning_start_at|date:"H:m" }}</td>
             {% endif %}
@@ -53,7 +60,7 @@
             <td>{{ run.runners.all|join:" - " }}</td>
             <td>{{ run.commentators.all|join:" - " }}</td>
             {% if perms.runs.change_run %}
-                <td><a href="">Modifier</a></td>
+                <td><a class="table-link" href="">Modifier</a></td>
             {% endif %}
         </tr>
     {% endfor %}

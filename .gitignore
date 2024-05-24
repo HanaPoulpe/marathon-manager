@@ -1,2 +1,4 @@
 /.venv/
 src/.env
+www
+*/__pycache__/*

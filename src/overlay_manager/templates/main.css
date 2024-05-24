@@ -1,0 +1,143 @@
+body {
+  background-color: #26292C;
+  color: #DEE0E3;
+}
+
+.link-header {
+  text-decoration: none;
+  font-size:24px;
+  color: #186E8B;
+  margin:10px 20px
+}
+
+.link-header:hover {
+  text-decoration: underline;
+  font-size: 26px;
+  color: #1B7C9D
+}
+
+.header-link-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-link-block-run{
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+  margin: 20px 20px;
+}
+
+.header-modify-link {
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.infos {
+  text-align: center;
+}
+
+.current-run-block {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: baseline;
+font-size: 24px
+}
+
+.current-run-link {
+  margin-left: 10px;
+  font-size: 40px;
+  text-decoration: none;
+  color: #186E8B;
+}
+
+.current-run-link:hover {
+  text-decoration: underline;
+  font-size: 48px;
+  color: #1B7C9D
+}
+
+.next-run-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 18px;
+  align-items: center;
+  margin-top: -20px;
+}
+
+.blockTitle-next-run {
+  margin-right: 10px;
+}
+
+.planning {
+  width: 100%;
+  margin: 40px 0px;
+}
+
+.planning-header {
+  font-size: 20px;
+}
+
+.planning-row {
+  text-align: center;
+}
+
+.planning-row:first-child td {
+  padding-top: 8px;
+}
+
+.planning-row:nth-child(odd) td {
+  padding-bottom: 8px;
+  border-top: solid 1px #6b1336;
+}
+
+.planning-row:nth-child(even) td {
+  padding-bottom: 8px;
+  border-top: solid 1px #1f665b;
+}
+
+.ended-run {
+  background-color: #131416;
+  color: #b2b6bd;
+}
+
+.table-link {
+  text-decoration: none;
+  color: #186E8B;
+}
+
+.table-link:hover {
+  text-decoration: underline;
+  color: #1B7C9D;
+}
+
+.form-block {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+.btn-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  text-decoration: none;
+  border: 1px solid #6b1336;
+  border-radius: 5px;
+  background-color: #6b1336;
+}
+
+.btn-link:hover {
+  border: 1PX solid #1f665b;
+  background-color: #1f665b;
+}
+
+.btn-link-a {
+  text-decoration: none;
+  font-size: 24px;
+  color: #b2b6bd;
+}

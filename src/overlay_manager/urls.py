@@ -1,5 +1,7 @@
 from django import urls
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 from overlay_manager.runs import views
 
@@ -87,4 +89,9 @@ urlpatterns = [
         views.EditRunNextView.as_view(),
         name="edit-run-move-down",
     ),
-]
+    urls.path(
+        "main.css",
+        views.CSSView.as_view(),
+        name="css",
+    )
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
