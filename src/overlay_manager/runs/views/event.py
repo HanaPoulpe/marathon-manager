@@ -31,7 +31,7 @@ class EventEditView(generic.DetailView):
         ctx["event"] = self.event
         ctx["current_run"] = self.event.current_run
         ctx["next_run"] = self.event.next_run
-        ctx["runs"] = self.event.runs.filter(is_intermission=False)
+        ctx["runs"] = self.event.runs.filter(is_intermission=False).order_by("run_index")
         late = ""
         if late_seconds := self.event.shift.total_seconds():
             hours = int(late_seconds // 3600)

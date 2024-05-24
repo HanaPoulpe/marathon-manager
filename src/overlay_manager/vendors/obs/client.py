@@ -102,7 +102,9 @@ class ObsClient:
 
         return response.scene_items
 
-    def get_scene_source_position(self, scene_name: str, source_name: str) -> SourcePosition | None:
+    def get_scene_source_position(
+        self, scene_name: str, source_name: str
+    ) -> SourcePosition | None:
         for source in self.get_scene_sources(scene_name):
             if source["sourceName"] == source_name:
                 return SourcePosition(
