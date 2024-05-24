@@ -87,7 +87,7 @@ def next_run_for_event(event: models.EventData) -> None:
 
 
 def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
-    next_runs_display = ["next_run_1", "next_run_2", "next_run_3"]
+    next_runs_display = ["Titre_NextRun", "Titre_Next", "Titre_Next_2", "Titre_Next_3"]
     timer_start_value = max(
         run.planning_end_at - datetime.datetime.now(datetime.UTC), run.estimated_time
     )
@@ -103,28 +103,24 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
 
 def _update_run(obs: obs_client.ObsClient, run: models.Run):
     runners_name_display = [
-        ["runner_0_0"],
-        ["runner_1_0"],
-        ["runner_2_0"],
-        ["runner_3_0"],
+        ["Runneureuse_1_1P_4:3", "Runneureuse_1_1P_WS"],
+        ["Runneureuse_2"],
+        ["Runneureuse_3"],
+        ["Runneureuse_3"],
     ]
     commentators_name_display = [
-        ["commentator_0_0"],
-        ["commentator_1_0"],
-        ["commentator_2_0"],
-        ["commentator_3_0"],
+        ["Commentateurice_1_1P_4:3", "Commentateur_1_1P_WS"],
+        ["Commontateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
     ]
     runners_pronouns_display = [
-        ["runner_pronouns_0_0"],
+        ["Runneureuse_1_pronoms_4:3", "Runneureuse_1_pronoms_WS"],
         ["runner_pronouns_1_0"],
         ["runner_pronouns_2_0"],
         ["runner_pronouns_3_0"],
     ]
     commentators_pronouns_display = [
-        ["commentator_pronouns_0_0"],
-        ["commentator_pronouns_1_0"],
-        ["commentator_pronouns_2_0"],
-        ["commentator_pronouns_3_0"],
+        ["Commentateurice_1_pronoms_4:3", "Commentateur_1_pronoms_WS"],
+        ["Commentateurice_2_pronoms_4:3", "Commentateur_2_pronoms_WS"],
     ]
     runners_socials_media_display = [
         [],
@@ -182,3 +178,32 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         return
     for scene in next_run_displays:
         obs.set_text_source_text(scene, next_run.name)
+
+
+def _replace_runner_elements_for_scene(
+        obs: obs_client.ObsClient,
+        scene: str,
+        runner: models.Person,
+        name_scene_id: str,
+        pronouns_scene_id: str,
+        socials_media_scene_id: str,
+) -> None:
+    if scene != '4_3':
+        return
+
+    margin = 5
+    max_x = 128
+
+    runner_name_position = obs.get_scene_source_position(scene, name_scene_id)
+    runner_pronouns_position = obs.get_scene_source_position(scene, pronouns_scene_id)
+
+    new_x_position = runner_name_position.position_x + margin + runner_pronouns_position.width
+
+    if new_x_position <= max_x:
+        runner_pronouns_position.position_x = new_x_position
+        runner_pronouns_position.position_y = runner_name_position.position_y + runner_name_position.height - runner_pronouns_position.height
+    else:
+        runner_pronouns_position.position_y = runner_name_position.position_y + runner_name_position.height + margin
+        runner_pronouns_position.position_x = runner_name_position.position_x + runner_name_position.width / 2 - runner_pronouns_position.width / 2
+
+    obs.set_scene_source_position(runner_pronouns_position)
