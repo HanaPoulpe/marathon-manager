@@ -41,7 +41,7 @@ def next_run_for_event(event: models.EventData) -> None:
         )
         return
 
-    with transaction.atomic:
+    with transaction.atomic():
         current_run = event.current_run
 
         now = datetime.datetime.now(datetime.UTC)
