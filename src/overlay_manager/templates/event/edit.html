@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form name="edit" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save" />
-    </form>
+<div class="form-block">
+  <form name="edit" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save" />
+  </form>
 
-    <div>
-    <a href="#">Ajouter une run</a>
+  <div class="btn-link" >
+    <a class="btn-link-a" href="#">Ajouter une run</a>
+  </div>
+</div>
 
-    <table class="runEdit">
-        <thead>
+    <table class="planning">
+        <thead class="planning-header">
             <th>&nbsp;</th>
             <th>Heure de debut</th>
             <th>Heure de fin</th>
@@ -23,7 +26,7 @@
             <th>Fini</th>
         </thead>
         {% for run in runs %}
-        <tr>
+        <tr class="planning-row">
             <td>
                 {% if run.can_move_up %}<a href="{% url 'edit-run-move-up' event.name run.id %}">/\</a>{% endif %}
                 {% if run.can_move_down %}<a href="{% url 'edit-run-move-down' event.name run.id %}">\/</a>{% endif %}
@@ -39,5 +42,4 @@
         </tr>
         {% endfor %}
     </table>
-    </div>
 {% endblock %}

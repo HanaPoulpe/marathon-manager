@@ -1,7 +1,9 @@
+{% load static %}
+<!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}2 fast 2 fabs{% endblock %}</title>
-</head>
+    <link rel="stylesheet" href="{% url 'css' %}">
 <body>
     {% block content %}
     {% endblock %}
