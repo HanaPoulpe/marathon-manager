@@ -41,25 +41,8 @@ def next_run_for_event(event: models.EventData) -> None:
         )
         return
 
-    with transaction.atomic():
-        current_run = event.current_run
-
-        now = datetime.datetime.now(datetime.UTC)
-        if previous_run := current_run:
-            previous_run.is_finished = True
-            previous_run.actual_end_at = now
-            previous_run.save()
-
-        event.current_run = event.next_slot
-        if current_run := event.current_run:
-            current_run.actual_start_at = now
-            delta = current_run.actual_start_at - current_run.planning_start_at
-            event.shift = (
-                delta if delta > datetime.timedelta(minutes=0) else datetime.timedelta(minutes=0)
-            )
-            current_run.save()
-
-        event.save()
+    event.set_next_run()
+    current_run = event.current_run
 
     if not current_run:
         return
