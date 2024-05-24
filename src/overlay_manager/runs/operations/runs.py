@@ -136,8 +136,8 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         ["Runneureuse_3"],
     ]
     commentators_name_display = [
-        ["Commentateurice_1_1P_4:3", "Commentateurice_1_1P_WS"],
-        ["Commontateurice_2_1P_4:3", "Commentateurice_2_1P_WS"],
+        ["Commentateurice_1_1P_4:3", "Commentateur_1_1P_WS"],
+        ["Commentateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
     ]
     runners_pronouns_display = [
         ["Runneureuse_1_Pronoms_4:3", "Runneureuse_1_Pronoms_WS"],
