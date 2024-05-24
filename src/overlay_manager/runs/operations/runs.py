@@ -171,7 +171,7 @@ def _replace_runner_elements_for_scene(
         pronouns_scene_id: str,
         socials_media_scene_id: str,
 ) -> None:
-    if scene != '4_3':
+    if scene != '1P - 4/3':
         return
 
     margin = 5
