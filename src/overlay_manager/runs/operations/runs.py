@@ -195,7 +195,7 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         )
 
     next_run = (
-        run.event.runs.filter(run_index__gt=run.run_index, intermission=False)
+        run.event.runs.filter(run_index__gt=run.run_index, is_intermission=False)
         .order_by("run_index")
         .first()
     )
