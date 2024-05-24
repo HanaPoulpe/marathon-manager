@@ -114,8 +114,8 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
         try:
             obs.set_text_source_text(displays[0], run.name)
             obs.set_text_source_text(displays[1], run.category)
-            obs.set_text_source_text(displays[2], run.runners[0].name)
-            obs.set_text_source_text(displays[3], run.runners[0].pronouns)
+            obs.set_text_source_text(displays[2], run.runners.first().name)
+            obs.set_text_source_text(displays[3], run.runners.first().pronouns)
             obs.set_text_source_text(
                 displays[4],
                 f"{run.estimated_time.seconds // 3600}:"
@@ -140,14 +140,14 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         ["Commontateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
     ]
     runners_pronouns_display = [
-        ["Runneureuse_1_pronoms_4:3", "Runneureuse_1_pronoms_WS"],
-        ["runner_pronouns_1_0"],
-        ["runner_pronouns_2_0"],
-        ["runner_pronouns_3_0"],
+        ["Runneureuse_1_Pronoms_4:3", "Runneureuse_1_Pronoms_WS"],
+        [],
+        [],
+        [],
     ]
     commentators_pronouns_display = [
-        ["Commentateurice_1_pronoms_4:3", "Commentateur_1_pronoms_WS"],
-        ["Commentateurice_2_pronoms_4:3", "Commentateur_2_pronoms_WS"],
+        ["Commentateurice_1_Pronoms_4:3", "Commentateur_1_Pronoms_WS"],
+        ["Commentateurice_2_Pronoms_4:3", "Commentateur_2_Pronoms_WS"],
     ]
     runners_socials_media_display = [
         [],

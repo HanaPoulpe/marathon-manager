@@ -47,7 +47,8 @@ class ObsClient:
             logger.info("Got OBS current scene.", extra=response.__dict__)
         except Exception as e:
             logger.exception("Failed to get current scene", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
+            return ""
 
         return response.current_program_scene_name
 
@@ -57,7 +58,7 @@ class ObsClient:
             logger.info("Set OBS scene.", extra={"scene_name": scene_name})
         except Exception as e:
             logger.exception("Failed to set scene", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
 
     def set_studio_scene(self, scene_name: str) -> None:
         try:
@@ -66,7 +67,7 @@ class ObsClient:
             logger.info("Set OBS studio scene.", extra={"scene_name": scene_name})
         except Exception as e:
             logger.exception("Failed to set studio scene", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
 
     def get_all_scenes(self) -> list[str]:
         try:
@@ -90,7 +91,7 @@ class ObsClient:
             )
         except Exception as e:
             logger.exception("Failed to set text source text", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
 
     def get_scene_sources(self, scene_name: str) -> list:
         try:
@@ -98,7 +99,8 @@ class ObsClient:
             logger.info("Got OBS scene sources.", extra=response.__dict__)
         except Exception as e:
             logger.exception("Failed to get scene sources", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
+            return []
 
         return response.scene_items
 
@@ -165,7 +167,7 @@ class ObsClient:
             )
         except Exception as e:
             logger.exception("Failed to set scene source position", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
 
     def set_rtmp_source_url(self, source_name: str, url: str) -> None:
         try:
@@ -179,4 +181,4 @@ class ObsClient:
             logger.info("Set OBS rtmp source url.", extra={"source_name": source_name, "url": url})
         except Exception as e:
             logger.exception("Failed to set rtmp source url", exc_info=e)
-            raise ObsClientError() from e
+            # raise ObsClientError() from e
