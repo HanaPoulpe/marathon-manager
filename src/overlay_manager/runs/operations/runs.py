@@ -114,8 +114,8 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
         try:
             obs.set_text_source_text(displays[0], run.name)
             obs.set_text_source_text(displays[1], run.category)
-            obs.set_text_source_text(displays[2], run.runners[0].name)
-            obs.set_text_source_text(displays[3], run.runners[0].pronouns)
+            obs.set_text_source_text(displays[2], run.runners.first().name)
+            obs.set_text_source_text(displays[3], run.runners.first().pronouns)
             obs.set_text_source_text(
                 displays[4],
                 f"{run.estimated_time.seconds // 3600}:"
