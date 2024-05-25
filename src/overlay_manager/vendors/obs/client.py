@@ -202,7 +202,7 @@ class ObsClient:
 
         try:
             img_response = response.image_data
-            img_b64 = img_response[img_response.find(",") + 1:]
+            img_b64 = img_response[img_response.find(",") + 1 :]
 
             img = base64.b64decode(img_b64)
         except Exception as e:
