@@ -112,15 +112,33 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
         next_runs_display,
     ):
         try:
+            runner = run.runners.first()
+            runner_name = (
+                runner.name if run.runners.count() == 1 else ", ".join(r.name for r in run.runners)
+            )
+            runner_pronouns = runner.pronouns if run.runners.count() == 1 else ""
+
             obs.set_text_source_text(displays[0], run.name)
             obs.set_text_source_text(displays[1], run.category or "")
-            obs.set_text_source_text(displays[2], run.runners.first().name)
-            obs.set_text_source_text(displays[3], run.runners.first().pronouns or "")
+            obs.set_text_source_text(displays[2], runner_name)
+            obs.set_text_source_text(displays[3], runner_pronouns)
             obs.set_text_source_text(
                 displays[4],
                 f"{run.estimated_time.seconds // 3600}:"
                 f"{run.estimated_time.seconds % 3600 // 60:02}:"
                 f"{run.estimated_time.seconds % 60:02}",
+            )
+            _replace_runner_elements_for_scene(
+                obs,
+                "Intermission",
+                runner,
+                displays[2],
+                displays[3],
+                "",
+                {
+                    "hide_if_too_long": True,
+                    "max_x": 1700,
+                },
             )
         except obs_client.ObsClientError:
             pass
@@ -227,12 +245,19 @@ def _replace_runner_elements_for_scene(
     name_scene_id: str,
     pronouns_scene_id: str,
     socials_media_scene_id: str,
+    params: dict | None = None,
 ) -> None:
-    if scene != "1P - 4/3":
+    if params is None:
+        params = {}
+
+    if scene not in [
+        "1P - 4/3",
+        "Intermission",
+    ]:
         return
 
-    margin = 5
-    max_x = 128
+    margin = params.get("margin", 5)
+    max_x = params.get("max_x", 1920)
 
     runner_name_position = obs.get_scene_source_position(scene, name_scene_id)
     runner_pronouns_position = obs.get_scene_source_position(scene, pronouns_scene_id)
@@ -246,7 +271,7 @@ def _replace_runner_elements_for_scene(
             + runner_name_position.height
             - runner_pronouns_position.height
         )
-    else:
+    elif params.get("hide_if_too_long", False):
         runner_pronouns_position.position_y = (
             runner_name_position.position_y + runner_name_position.height + margin
         )
@@ -255,5 +280,7 @@ def _replace_runner_elements_for_scene(
             + runner_name_position.width / 2
             - runner_pronouns_position.width / 2
         )
+    else:
+        obs.set_text_source_text(pronouns_scene_id, "")
 
     obs.set_scene_source_position(runner_pronouns_position)
