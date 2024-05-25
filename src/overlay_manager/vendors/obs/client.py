@@ -1,6 +1,7 @@
 import logging
 import os
 import uuid
+import base64
 
 import attrs
 import obsws_python as obs
@@ -186,16 +187,13 @@ class ObsClient:
             # raise ObsClientError() from e
 
     def get_source_screen_shot(self, source_name: str) -> bytes:
-        file_path = settings.TEMP_PATH.joinpath(f"{uuid.uuid4()}.png")
-
         try:
-            self._ws.save_source_screenshot(
+            response = self._ws.get_source_screenshot(
                 name=source_name,
                 img_format="png",
                 width=1920,
                 height=1080,
                 quality=80,
-                file_path=str(file_path),
             )
             logger.info("Got OBS source screen shot.")
         except Exception as e:
@@ -203,10 +201,10 @@ class ObsClient:
             raise ObsClientError() from e
 
         try:
-            with open(file_path, "rb") as f:
-                img = f.read()
+            img_response = response.image_data
+            img_b64 = img_response[img_response.find(",") + 1:]
 
-            os.remove(file_path)
+            img = base64.b64decode(img_b64)
         except Exception as e:
             logger.exception("Failed to decode source screen shot", exc_info=e)
             raise ObsClientError() from e
