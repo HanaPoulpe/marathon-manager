@@ -114,7 +114,7 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
         try:
             runner = run.runners.first()
             runner_name = (
-                runner.name if run.runners.count() == 1 else ", ".join(r.name for r in run.runners)
+                runner.name if run.runners.count() == 1 else ", ".join(r.name for r in run.runners.all())
             )
             runner_pronouns = runner.pronouns if run.runners.count() == 1 else ""
 
