@@ -176,7 +176,10 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         commentators_name_display, commentators_pronouns_display, run.commentators.order_by("name")
     ):
         for scene in commentator_name:
-            obs.set_text_source_text(scene, commentator.name)
+            commentator_name = commentator.name
+            if commentator_name == "Personne":
+                commentator_name = ""
+            obs.set_text_source_text(scene, commentator_name)
         for scene in commentator_pronouns:
             obs.set_text_source_text(scene, commentator.pronouns or "")
 
