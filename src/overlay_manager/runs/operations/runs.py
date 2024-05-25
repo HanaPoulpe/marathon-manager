@@ -130,24 +130,24 @@ def _update_intermission(obs: obs_client.ObsClient, run: models.Run) -> None:
 
 def _update_run(obs: obs_client.ObsClient, run: models.Run):
     runners_name_display = [
-        ["Runneureuse_1_1P_4:3", "Runneureuse_1_1P_WS"],
-        ["Runneureuse_2"],
-        ["Runneureuse_3"],
-        ["Runneureuse_3"],
+        ["Runneureuse_1_1P_4:3", "Runneureuse_1_1P_WS", "Runneureuse_1_2P_WS"],
+        ["Runneureuse_2_2P_WS"],
+        [],
+        [],
     ]
     commentators_name_display = [
-        ["Commentateurice_1_1P_4:3", "Commentateur_1_1P_WS"],
-        ["Commentateurice_2_1P_4:3", "Commentateur_2_1P_WS"],
+        ["Commentateurice_1_1P_4:3", "Commentateurice_1_1P_WS", "Commentateurice_1_2P_WS"],
+        ["Commentateurice_2_1P_4:3", "Commentateurice_2_1P_WS", "Commentateurice_2_2P_WS"],
     ]
     runners_pronouns_display = [
-        ["Runneureuse_1_Pronoms_1P_4:3", "Runneureuse_1_Pronoms_1P_WS"],
-        [],
+        ["Runneureuse_1_Pronoms_1P_4:3", "Runneureuse_1_Pronoms_1P_WS", "Runneureuse_1_Pronoms_2P_WS"],
+        ["Runneureuse_2_Pronoms_2P_WS"],
         [],
         [],
     ]
     commentators_pronouns_display = [
-        ["Commentateurice_1_Pronoms_1P_4:3", "Commentateur_1_Pronoms_1P_WS"],
-        ["Commentateurice_2_Pronoms_1P_4:3", "Commentateur_2_Pronoms_1P_WS"],
+        ["Commentateurice_1_Pronoms_1P_4:3", "Commentateurice_1_Pronoms_1P_WS", "Commentateurice_1_Pronoms_2P_WS"],
+        ["Commentateurice_2_Pronoms_1P_4:3", "Commentateurice_2_Pronoms_1P_WS", "Commentateurice_2_Pronoms_2P_WS"],
     ]
     runners_socials_media_display = [
         [],
