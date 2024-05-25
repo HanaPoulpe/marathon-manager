@@ -140,14 +140,26 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         ["Commentateurice_2_1P_4:3", "Commentateurice_2_1P_WS", "Commentateurice_2_2P_WS"],
     ]
     runners_pronouns_display = [
-        ["Runneureuse_1_Pronoms_1P_4:3", "Runneureuse_1_Pronoms_1P_WS", "Runneureuse_1_Pronoms_2P_WS"],
+        [
+            "Runneureuse_1_Pronoms_1P_4:3",
+            "Runneureuse_1_Pronoms_1P_WS",
+            "Runneureuse_1_Pronoms_2P_WS",
+        ],
         ["Runneureuse_2_Pronoms_2P_WS"],
         [],
         [],
     ]
     commentators_pronouns_display = [
-        ["Commentateurice_1_Pronoms_1P_4:3", "Commentateurice_1_Pronoms_1P_WS", "Commentateurice_1_Pronoms_2P_WS"],
-        ["Commentateurice_2_Pronoms_1P_4:3", "Commentateurice_2_Pronoms_1P_WS", "Commentateurice_2_Pronoms_2P_WS"],
+        [
+            "Commentateurice_1_Pronoms_1P_4:3",
+            "Commentateurice_1_Pronoms_1P_WS",
+            "Commentateurice_1_Pronoms_2P_WS",
+        ],
+        [
+            "Commentateurice_2_Pronoms_1P_4:3",
+            "Commentateurice_2_Pronoms_1P_WS",
+            "Commentateurice_2_Pronoms_2P_WS",
+        ],
     ]
     runners_socials_media_display = [
         [],
@@ -176,7 +188,10 @@ def _update_run(obs: obs_client.ObsClient, run: models.Run):
         commentators_name_display, commentators_pronouns_display, run.commentators.order_by("name")
     ):
         for scene in commentator_name:
-            obs.set_text_source_text(scene, commentator.name)
+            commentator_name = commentator.name
+            if commentator_name == "Personne":
+                commentator_name = ""
+            obs.set_text_source_text(scene, commentator_name)
         for scene in commentator_pronouns:
             obs.set_text_source_text(scene, commentator.pronouns or "")
 
