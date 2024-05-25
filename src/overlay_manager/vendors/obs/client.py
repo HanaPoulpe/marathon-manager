@@ -1,4 +1,6 @@
 import logging
+import os
+import uuid
 
 import attrs
 import obsws_python as obs
@@ -182,3 +184,31 @@ class ObsClient:
         except Exception as e:
             logger.exception("Failed to set rtmp source url", exc_info=e)
             # raise ObsClientError() from e
+
+    def get_source_screen_shot(self, source_name: str) -> bytes:
+        file_path = settings.TEMP_PATH.joinpath(f"{uuid.uuid4()}.png")
+
+        try:
+            self._ws.save_source_screenshot(
+                name=source_name,
+                img_format="png",
+                width=1920,
+                height=1080,
+                quality=80,
+                file_path=str(file_path),
+            )
+            logger.info("Got OBS source screen shot.")
+        except Exception as e:
+            logger.exception("Failed to get source screen shot", exc_info=e)
+            raise ObsClientError() from e
+
+        try:
+            with open(file_path, "rb") as f:
+                img = f.read()
+
+            os.remove(file_path)
+        except Exception as e:
+            logger.exception("Failed to decode source screen shot", exc_info=e)
+            raise ObsClientError() from e
+
+        return img

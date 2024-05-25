@@ -31,6 +31,7 @@ DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
+TEMP_PATH = Path(env.str("TEMP_PATH", default="/tmp"))
 
 # Application definition
 
