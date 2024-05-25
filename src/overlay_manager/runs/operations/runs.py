@@ -262,6 +262,9 @@ def _replace_runner_elements_for_scene(
     runner_name_position = obs.get_scene_source_position(scene, name_scene_id)
     runner_pronouns_position = obs.get_scene_source_position(scene, pronouns_scene_id)
 
+    if None in (runner_pronouns_position, runner_pronouns_position):
+        return
+
     new_x_position = runner_name_position.position_x + margin + runner_pronouns_position.width
 
     if new_x_position <= max_x:
