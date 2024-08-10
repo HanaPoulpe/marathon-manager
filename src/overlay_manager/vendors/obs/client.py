@@ -208,5 +208,6 @@ class ObsClient:
         except Exception as e:
             logger.exception("Failed to decode source screen shot", exc_info=e)
             raise ObsClientError() from e
+        self._ws.get_scene_item_list(response.scene_name)
 
         return img
