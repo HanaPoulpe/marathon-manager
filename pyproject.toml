@@ -1,10 +1,30 @@
-[tool.poetry]
+[project]
+authors = [
+    {name = "HanaPoulpe", email = "hana@hanapoulpe.org"},
+]
+requires-python = "<4.0,>=3.13"
+dependencies = [
+    "Django<6.0.0,>=5.0.6",
+    "python-dotenv<2.0.0,>=1.0.1",
+    "psycopg2-binary<3.0.0,>=2.9.9",
+    "pytz<2025.0,>=2024.1",
+    "environs<12.0.0,>=11.0.0",
+    "django-allauth<1.0.0,>=0.63.1",
+    "obsws-python<2.0.0,>=1.7.0",
+    "attrs<24.0.0,>=23.2.0",
+]
 name = "overlay-manager"
 version = "0.1.0"
 description = "Manage overlay for speedrun event"
-authors = ["HanaPoulpe <hana@hanapoulpe.org>"]
 readme = "README.md"
-packages = [{include = "overlay_manager"}]
+
+[dependency-groups]
+dev = [
+    "pytest<9.0.0,>=8.2.0",
+    "mypy<2.0.0,>=1.10.0",
+    "black<25.0.0,>=24.4.2",
+    "isort<6.0.0,>=5.13.2",
+]
 
 [tool.black]
 line-length = 99
@@ -16,30 +36,15 @@ exclude = '(node_modules|migrations/)'
 multi_line_output = 3
 include_trailing_comma = "True"
 force_grid_wrap = 0
-known_first_party = "queenbees,tests"
+known_first_party = "overlay_manager,tests"
 default_section = "THIRDPARTY"
 use_parentheses = "True"
 line_length = 99
 skip_glob="**/node_modules/*, **/migrations/**"
 src_paths = "src"
 
-[tool.poetry.dependencies]
-python = "^3.13"
-Django = "^5.0.6"
-python-dotenv = "^1.0.1"
-psycopg2-binary = "^2.9.9"
-pytz = "^2024.1"
-environs = "^11.0.0"
-django-allauth = "^0.63.1"
-obsws-python = "^1.7.0"
-attrs = "^23.2.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.2.0"
-mypy = "^1.10.0"
-black = "^24.4.2"
-isort = "^5.13.2"
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
