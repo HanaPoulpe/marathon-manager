@@ -24,7 +24,7 @@ skip_glob="**/node_modules/*, **/migrations/**"
 src_paths = "src"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.13"
 Django = "^5.0.6"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.9"
