@@ -28,14 +28,16 @@
         {% for run in runs %}
         <tr class="planning-row">
             <td>
-                {% if run.can_move_up %}<a href="{% url 'edit-run-move-up' event.name run.id %}">/\</a>{% endif %}
-                {% if run.can_move_down %}<a href="{% url 'edit-run-move-down' event.name run.id %}">\/</a>{% endif %}
+                {% if run.can_move_up %}<a href="{% url 'edit-run-move-up' event.name run.id %}" class="table-link">/\</a>{% endif %}
+                {% if run.can_move_down %}<a href="{% url 'edit-run-move-down' event.name run.id %}" class="table-link">\/</a>{% endif %}
             </td>
             <td>{{ run.planning_start_at|date:"H:i" }}</td>
             <td>{{ run.planning_end_at|date:"H:i" }}</td>
             <td>{{ run.name }}</td>
             <td>{{ run.estimated_time }}</td>
-            <td>{{ run.runners.all|join:" - " }}</td>
+            <td><ul>{% for runner in run.runners.all  %}
+                    <li><a href="{{ runner.rtmp }}" class="table-link">{{ runner }}</a> - {{ runner.rtmp }}</li>
+            {% endfor %}</ul></td>
             <td>{{ run.commentators.all|join:" - " }}</td>
             <td>{% if run.is_intermission %}X{% endif %}</td>
             <td>{% if run.is_finished %}X{% endif %}</td>
