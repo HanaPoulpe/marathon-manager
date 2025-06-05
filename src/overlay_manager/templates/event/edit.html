@@ -12,6 +12,18 @@
     <a class="btn-link-a" href="#">Ajouter une run</a>
   </div>
 </div>
+    <hr />
+<div>
+  <div>Stream Actifs:</div>
+  <div><ul>
+    {% for stream in streams %}
+      <li>
+        <a href="{{ stream.url }}" class="table-link">{{ stream }}</a>
+        {% if stream.runner %}=> {{ stream.runner }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul></div>
+</div>
 
     <table class="planning">
         <thead class="planning-header">
