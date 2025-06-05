@@ -2,6 +2,7 @@ import datetime
 from typing import Optional
 
 from django.db import models, transaction
+from django.conf import settings
 
 
 class Person(models.Model):
@@ -10,10 +11,20 @@ class Person(models.Model):
     pronouns = models.CharField(max_length=255, null=True, blank=True)
     socials = models.URLField(null=True, blank=True)
 
-    rtmp_host = models.URLField(null=True, blank=True)
+    rtmp_host = models.CharField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def rtmp(self) -> str:
+        if self.rtmp_host:
+            if self.rtmp_host.startswith("rtmp://"):
+                return self.rtmp_host
+
+            return f"{settings.RTMP_BASE_URI}/{self.rtmp_host}"
+
+        return f"{settings.RTMP_BASE_URI}/{self.name.lower()}"
 
 
 class EventData(models.Model):

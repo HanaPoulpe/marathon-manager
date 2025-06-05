@@ -63,7 +63,9 @@
             <td><a href="#{{ run.run_index }}"></a>{{ run.name }}</td>
             <td>{{ run.category }}</td>
             <td>{{ run.estimated_time }}</td>
-            <td>{{ run.runners.all|join:" - " }}</td>
+            <td><ul>{% for runner in runs.runner.all  %}
+                    <li><a href="{{ runner.rtmp }}" class="table-link">{{ runner }}</a> - {{ runner.rtmp }}</li>
+            {% endfor %}</ul></td>
             <td>{{ run.commentators.all|join:" - " }}</td>
             {% if perms.runs.change_run %}
                 <td><a class="table-link" href="">Modifier</a></td>

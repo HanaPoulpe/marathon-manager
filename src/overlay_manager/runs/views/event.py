@@ -8,6 +8,7 @@ from django.views import generic
 
 from overlay_manager.runs import forms, models
 from overlay_manager.runs.operations import runs as run_operations
+from overlay_manager.runs.operations import rtmp as rtmp_operations
 
 
 class EventEditView(generic.DetailView):
@@ -224,6 +225,12 @@ class EventEditFormView(auth_mixins.PermissionRequiredMixin, generic.FormView):
             }
             for run in event.runs.order_by("run_index")
         ]
+        try:
+            streams = rtmp_operations.get_active_streams()
+        except rtmp_operations.CouldNotGetStats:
+            streams = []
+        ctx["streams"] = streams
+        ctx["persons"] = models.Person.objects.all().order_by("name")
 
         return ctx
 

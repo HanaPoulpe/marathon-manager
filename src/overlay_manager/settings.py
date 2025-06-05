@@ -164,3 +164,8 @@ SOCIALACCOUNT_PROVIDERS = {
 OBS_HOST = env.str("OBS_HOST", "localhost")
 OBS_PORT = env.int("OBS_PORT", 4455)
 OBS_PASSWORD = env.str("OBS_PASSWORD", "")
+
+# RTMP
+RTMP_DOMAIN_NAME = env.str("RTMP_DOMAIN_NAME", "rtmp1.fastandfabs.run")
+RTMP_BASE_URI = f"rtmp://{RTMP_DOMAIN_NAME}/live"
+RTMP_STATS_URI = f"http://{RTMP_DOMAIN_NAME}/stat"
