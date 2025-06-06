@@ -33,9 +33,17 @@
             <h4 class="blockTitle">Run en cours</h4>
             <a class="current-run-link" href="#{{ current_run.run_index }}">{{ current_run }}</a>
         </div>
+      <div class="current-run-info-block">
+          <p>Runneur-euse(s): {{ current_run.runners.all|join:", " }} -- Commentateur-ice(s): {{ current_run.commentators.all|join:", " }}</p>
+          <p>Estimation: {{ current_run.estimated_time }}</p>
+        </div>
         <div class="next-run-block">
             <h4 class="blockTitle-next-run">Run suivante</h4>
-            {{ next_run }}
+            {{ next_run }}<br />
+        </div>
+      <div class="next-run-info-block">
+        <p>Runneur-euse(s): {{ next_run.runners.all|join:", " }} -- Commentateur-ice(s): {{ next_run.commentators.all|join:", " }}</p>
+        <p>Estimation: {{ next_run.estimated_time }}</p>
         </div>
         {% if late %}
         <div class="block">
