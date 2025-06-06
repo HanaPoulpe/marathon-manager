@@ -47,7 +47,7 @@ class EventData(models.Model):
         try:
             return Run.objects.filter(
                 run_index__gt=current_run_index, is_intermission=False
-            ).first()
+            ).order_by("run_index").first()
         except Run.DoesNotExist:
             return None
 
@@ -58,7 +58,7 @@ class EventData(models.Model):
             current_run_index = self.current_run.run_index
 
         try:
-            return Run.objects.filter(run_index__gt=current_run_index).first()
+            return Run.objects.filter(run_index__gt=current_run_index).order_by("run_index").first()
         except Run.DoesNotExist:
             return None
 
