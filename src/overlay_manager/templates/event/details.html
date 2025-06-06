@@ -33,9 +33,18 @@
             <h4 class="blockTitle">Run en cours</h4>
             <a class="current-run-link" href="#{{ current_run.run_index }}">{{ current_run }}</a>
         </div>
+      <div class="current-run-info-block">
+          <p>Runneur-euse(s): {{ current_run.runners.all|join:", " }} -- Commentateur-ice(s): {{ current_run.commentators.all|join:", " }}</p>
+          <p>Estimation: {{ current_run.estimated_time }}</p>
+        </div>
         <div class="next-run-block">
             <h4 class="blockTitle-next-run">Run suivante</h4>
-            {{ next_run }}
+            {{ next_run }}<br />
+        </div>
+      <div class="next-run-info-block">
+        <p>Runneur-euse(s): {{ next_run.runners.all|join:", " }} -- Commentateur-ice(s): {{ next_run.commentators.all|join:", " }}</p>
+        <p>Estimation: {{ next_run.estimated_time }}</p>
+        <p>Heure debut Planning: {{ next_run.planning_start_at|date:"H:i:s" }}</p>
         </div>
         {% if late %}
         <div class="block">
@@ -63,9 +72,9 @@
     {% for run in runs %}
         <tr class="planning-row {% if run.is_terminated %} ended-run {% endif %}">
             {% if perms.runs.view_eventdata %}
-                <td>{{ run.planning_start_at|date:"H:m" }}</td>
+                <td>{{ run.planning_start_at|date:"H:i" }}</td>
             {% endif %}
-            <td>{{ run.start_at|date:"H:m" }}</td>
+            <td>{{ run.start_at|date:"H:i" }}</td>
             <td><a href="#{{ run.run_index }}"></a>{{ run.name }}</td>
             <td>{{ run.category }}</td>
             <td>{{ run.estimated_time }}</td>
