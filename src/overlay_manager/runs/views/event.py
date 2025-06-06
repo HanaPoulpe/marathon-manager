@@ -42,6 +42,12 @@ class EventEditView(generic.DetailView):
             if minutes:
                 late += f"{minutes}m"
         ctx["late"] = late
+        try:
+            streams = rtmp_operations.get_active_streams()
+        except rtmp_operations.CouldNotGetStats:
+            streams = []
+        ctx["streams"] = streams
+        ctx["persons"] = models.Person.objects.all().order_by("name")
 
         return ctx
 
