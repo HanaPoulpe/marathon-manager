@@ -16,21 +16,27 @@
         </div>
     </div>
 
+<div>
+  <div>Stream Actifs:</div>
+  <div><ul>
+    {% for stream in streams %}
+      <li>
+        <a href="{{ stream.url }}" class="table-link">{{ stream }}</a>
+        {% if stream.runner %}=> {{ stream.runner }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul></div>
+</div>
+
     <div class="infos">
         <div class="current-run-block">
             <h4 class="blockTitle">Run en cours</h4>
             <a class="current-run-link" href="#{{ current_run.run_index }}">{{ current_run }}</a>
         </div>
-        <div><a href="{% url 'screenshot' event.name current_run.id %}" target="_blank">
-            <img src="{% url 'screenshot' event.name current_run.id %}" height="101" width="190" alt="Screenshot"/>
-        </a></div>
         <div class="next-run-block">
             <h4 class="blockTitle-next-run">Run suivante</h4>
             {{ next_run }}
         </div>
-        <div><a href="{% url 'screenshot' event.name next_run.id %}" target="_blank">
-            <img src="{% url 'screenshot' event.name next_run.id %}" height="101" width="190" alt="Screenshot"/>
-        </a></div>
         {% if late %}
         <div class="block">
             <h4 class="blockTitle">Retard</h4>
@@ -63,7 +69,7 @@
             <td><a href="#{{ run.run_index }}"></a>{{ run.name }}</td>
             <td>{{ run.category }}</td>
             <td>{{ run.estimated_time }}</td>
-            <td><ul>{% for runner in runs.runner.all  %}
+            <td><ul>{% for runner in run.runners.all  %}
                     <li><a href="{{ runner.rtmp }}" class="table-link">{{ runner }}</a> - {{ runner.rtmp }}</li>
             {% endfor %}</ul></td>
             <td>{{ run.commentators.all|join:" - " }}</td>
